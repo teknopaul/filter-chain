@@ -1,0 +1,54 @@
+ServletsFilter style reques chaining.
+
+This is very simple single file modeul but provides a nice structure for webapps allowing you to introduce configurable aspects to each requires.
+
+The chain is configured in code, you can externalize it if you need.
+
+var attributesFilter = 		require("../server/attributes-filter"),
+	logRequestFilter = 	require("../server/log-request-filter")
+	serverHeaderFilter = 	require("../server/server-header-filter"),
+	notModifiedFilter = 	require("../server/not-modified-filter"),
+	routerFilter = 		require("../server/router");
+
+Create an ordered array of the filters and pass it to the FilterChain constructor 
+
+var chainModules = [
+	attributesFilter, 
+	logRequestFilter, 
+	serverHeaderFilter,
+	notModifiedFilter,
+	routerFilter
+];
+
+var chain = new FilterChain(chainModules);
+
+
+Then ins a server start the chain with its execute() method, passing the request and response.
+
+
+http.createServer(function(request, response) {
+	// N.B a typical router should be in the chain
+	//router.route(request, response);
+
+	chain.execute(request, response);
+	
+}).listen(8000);
+
+
+
+Filters look identical to Java Servlets filters
+
+
+
+var parse = require('url').parse;
+
+filter = function(request, response, chain) {
+	
+	var url = parse(request.url);
+	console.log(request.method + " " + url.pathname);
+	
+	chain.doFilter(request, response);
+	
+};
+
+exports.filter = filter;

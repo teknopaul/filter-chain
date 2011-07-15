@@ -1,0 +1,12 @@
+{
+  "name": "filter-chain",
+  "version": "1.0",
+  "dependencies": {},
+  "directories": {
+    "lib": "./lib"
+  },
+  "main": "./lib/filter-chain",
+  "engines": {
+    "node": "*"
+  }
+}
