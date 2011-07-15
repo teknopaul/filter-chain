@@ -1,8 +1,12 @@
-ServletsFilter style reques chaining.
+ServletsFilter style request chaining.
 
-This is very simple single file modeul but provides a nice structure for webapps allowing you to introduce configurable aspects to each requires.
+This is very simple single file module, but provides a nice structure for webapps allowing you to introduce configurable aspects to each request.
 
 The chain is configured in code, you can externalize it if you need.
+
+Usage:
+
+First load a set of filters
 
 var attributesFilter = 		require("../server/attributes-filter"),
 	logRequestFilter = 	require("../server/log-request-filter")
@@ -23,7 +27,7 @@ var chainModules = [
 var chain = new FilterChain(chainModules);
 
 
-Then ins a server start the chain with its execute() method, passing the request and response.
+Then, in a server start, the chain with it's execute() method, passing the request and response.
 
 
 http.createServer(function(request, response) {
@@ -35,10 +39,10 @@ http.createServer(function(request, response) {
 }).listen(8000);
 
 
+That's it, nothing special, but a usefull design pattern.
 
-Filters look identical to Java Servlets filters
 
-
+Filters look identical to Java Servlets filters.
 
 var parse = require('url').parse;
 
@@ -52,3 +56,7 @@ filter = function(request, response, chain) {
 };
 
 exports.filter = filter;
+
+You must export a function called "filter", but the module can do any thing else as well.
+
+
