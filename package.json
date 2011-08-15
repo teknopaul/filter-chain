@@ -1,6 +1,7 @@
 {
   "name": "filter-chain",
-  "version": "1.0",
+  "version": "1.0.0",
+  "description": "request chaining ala Servlets filters",
   "dependencies": {},
   "directories": {
     "lib": "./lib"
